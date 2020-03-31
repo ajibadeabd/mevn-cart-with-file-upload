@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www",
+    "start": "node ./bin/www",
     "server": "nodemon ./bin/www",
     "client": "npm run serve -- prefix client",
     "dev": "concurrently \"npm run serve\" \"npm run client\""
@@ -25,6 +25,6 @@
   },
   "devDependencies": {
     "faker": "^4.1.0",
-    "nodemon": "^1.19.4"
+    "nodemon": "^1.17.1"
   }
 }
