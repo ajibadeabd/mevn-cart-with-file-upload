@@ -50,7 +50,8 @@ export default {
         image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
         locale: 'auto',
         token: (token) => {
-            Api().post('/charge', {stripeToken: token, total: total})
+            // Api()
+            axios.post('/charge', {stripeToken: token, total: total})
                 .then(response => {
                     let charge = response.data;
                      this.$store.commit('setCharge', charge);

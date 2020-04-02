@@ -15,7 +15,8 @@
 
 <script>
 import Cards from './Cards';
-import Api from '@/config/Api'
+// import Api from '@/config/Api'
+import axios from 'axios'
 
 export default {
     components: {
@@ -31,7 +32,8 @@ export default {
         }
     },
     created() {
-        Api().get('/products')
+        // Api().
+        axios.get('/products')
             .then(response => {
                 this.products = response.data.products;
                 this.currentPage = response.data.currentPage;
@@ -42,7 +44,8 @@ export default {
     },
     methods: {
         checkPage(url) {
-            Api().get(url)
+            // Api().
+            axios.get(url)
                 .then(response => {
                     this.products = response.data.products;
                     this.currentPage = response.data.currentPage;

@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import Api from '@/config/Api'
+// import Api from '@/config/Api'
+import axios from 'axios'
 export default {
     data() {
         return {
@@ -27,7 +28,8 @@ export default {
         }
     },
     created() {
-        Api().get('/categories')
+        // Api().
+        axios.get('/categories')
             .then(response => {
                 this.categories = response.data;
             });
