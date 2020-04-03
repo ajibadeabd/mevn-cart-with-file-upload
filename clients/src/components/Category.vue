@@ -4,8 +4,8 @@
 
 <script>
 import Cards from './Cards';
-// import Api from '@/config/Api'
-import axios from 'axios'
+import Api from '@/config/Api'
+// import axios from 'axios'
 
 
 export default {
@@ -30,8 +30,7 @@ export default {
     },
     methods: {
         fetch() {
-            //  Api()
-             axios.get(`/categories/${this.category}`)
+             Api().get(`/categories/${this.category}`)
             .then(response => {
                  this.products = response.data
             });

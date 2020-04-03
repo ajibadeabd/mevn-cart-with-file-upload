@@ -31,7 +31,10 @@
                     </tbody>
               </table>
                 <h4>Total: ${{ total }}</h4> 
-                <button id="checkout" class="btn btn-outline-primary" @click="checkout">Checkout</button>
+               <button  id="checkout-button" class="btn btn-outline-primary" >pay</button>
+               STILL WORKING ON THE PAYMENT STUFF THANKS
+                <!-- <button id="checkout" class="btn btn-outline-primary"
+                 @click="checkout">Checkout</button> -->
               </div>
           </div>
       </div>
@@ -39,28 +42,44 @@
 </template>
 
 <script>
-import Api from '@/config/Api'
-import key from '@/config/stripeKey'
+// import Api from '@/config/Api'
+// import axios from 'axios'
+// import key from '@/config/stripeKey'
 
 export default {
     mounted() {
-        let total = this.total;
-        this.handler = StripeCheckout.configure({
-        key: key.PUBLISHABLE_KEY,
-        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-        locale: 'auto',
-        token: (token) => {
-            // Api()
-            axios.post('/charge', {stripeToken: token, total: total})
-                .then(response => {
-                    let charge = response.data;
-                     this.$store.commit('setCharge', charge);
-                     this.$router.push({name: 'thankyou'});
-                     localStorage.clear();
-                     this.$store.state.cart = [];
-                })
-        }
-        });
+        // let total = this.total;
+        // this.handler = StripeCheckout.configure({
+        // key: key.PUBLISHABLE_KEY,
+        // image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+        // locale: 'auto',
+        // token: (token) => {
+        //     Api().post('/charge', {stripeToken: token, total: total})
+        //         .then(response => {
+        //             let charge = response.data;
+        //              this.$store.commit('setCharge', charge);
+        //              this.$router.push({name: 'thankyou'});
+        //              localStorage.clear();
+        //              this.$store.state.cart = [];
+        //         })
+        // }
+        // });
+        var stripe = Stripe('pk_test_TYooMQauvdEDq54NiTphI7jx');
+
+var checkoutButton = document.querySelector('#checkout-button');
+checkoutButton.addEventListener('click', function () {
+  stripe.redirectToCheckout({
+    //  [{
+                name: 'Shopping Cart',
+                description: 'Web site for Shopping Cart',
+                amount: this.total*100,
+      quantity: 1
+    // }],
+    ,
+    successUrl: 'https://www.example.com/success',
+    cancelUrl: 'https://www.example.com/cancel'
+  });
+});
     },
     computed: {
          cart() {
@@ -75,13 +94,13 @@ export default {
          }
     },
     methods: {
-        checkout(){
-        this.handler.open({
-                name: 'Shopping Cart',
-                description: 'Web site for Shopping Cart',
-                amount: this.total*100
-            });
-        },
+        // checkout(){
+        // this.handler.open({
+        //         name: 'Shopping Cart',
+        //         description: 'Web site for Shopping Cart',
+        //         amount: this.total*100
+        //     });
+        // },
         action(event, item) {
             switch (event) {
                 case 'add':

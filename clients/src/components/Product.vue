@@ -18,7 +18,7 @@
 
 <script>
 import Api from '@/config/Api'
-import axios from 'axios'
+// import axios from 'axios'
 import mixins from '@/mixins/mixins'
 
 export default {
@@ -30,8 +30,8 @@ export default {
     }
   },
   created() {
-      //  Api().
-       axios.get(`/products/${this.id}`)
+    console.log(this.id)
+       Api().get(`/products/${this.id}`)
               .then(response => {
                 this.product = response.data
               });

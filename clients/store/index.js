@@ -1,7 +1,12 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
+import Auth from '../wareHouse/auth'
+
 Vue.use(Vuex)
 export default new Vuex.Store({
+    modules:{
+        Auth
+            },
     state: {
         cart: JSON.parse(localStorage.getItem('cart')) || [],
         charge: {}

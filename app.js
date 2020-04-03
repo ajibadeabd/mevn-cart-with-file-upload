@@ -7,19 +7,19 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const index = require('./routes/index');
+const api = require('./routes/api/users');
 const products = require('./routes/products');
 const categories = require('./routes/categories');
 const seeder = require('./routes/seeder/products');
-const stripe = require("stripe")('PRIVT_KEY');
-
+const stripe = require("stripe")('Ppk_test_TYooMQauvdEDq54NiTphI7jx');
+const passport = require('passport')
 const app = express();
 
 //map global promise - get rid of warning
 mongoose.promise=global.promise;
-
-// mongoose.connect( 'mongodb://localhost/vueexpress',
+mongoose.connect( 'mongodb://localhost/vueexpress',
   
-mongoose.connect( 'mongodb+srv://user:user@cluster0-vehxj.mongodb.net/test?retryWrites=true&w=majority',
+// mongoose.connect( 'mongodb+srv://user:user@cluster0-vehxj.mongodb.net/test?retryWrites=true&w=majority',
 {useNewUrlParser:true,
   useUnifiedTopology: true 
 })
@@ -39,11 +39,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-
+app.use(passport.initialize())
+require("./config/passport")(passport)
 app.use('/', index);
 app.use('/products', products);
 app.use('/categories', categories);
+app.use('/api', api);
 app.use('/seeder', seeder);
+
+app.use((err,req,res,next)=>{
+  if(err.code==='LIMIT_FILE_TYPES'){
+      res.status(422).json({
+          error:'only images are allow'
+      });
+      return
+  }
+  if(err.code==='LIMIT_FILE_SIZE'){
+      res.status(422).json({
+          error:`too large. Max size is ${2000000/1000}kb`
+      });return;
+  }
+  })   
+
 app.get('*',(req,res)=>{
   res.sendFile(path.join(__dirname,'public/index.html'))
   })
