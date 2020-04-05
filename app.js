@@ -17,9 +17,9 @@ const app = express();
 
 //map global promise - get rid of warning
 mongoose.promise=global.promise;
-mongoose.connect( 'mongodb://localhost/vueexpress',
+// mongoose.connect( 'mongodb://localhost/vueexpress',
   
-// mongoose.connect( 'mongodb+srv://user:user@cluster0-vehxj.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect( 'mongodb+srv://user:user@cluster0-vehxj.mongodb.net/test?retryWrites=true&w=majority',
 {useNewUrlParser:true,
   useUnifiedTopology: true 
 })
