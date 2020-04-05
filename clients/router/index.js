@@ -10,6 +10,10 @@ import details from '@/components/details'
 import Login from '@/components/Login'
 import store from '../store'
 import uploadfile from '@/components/uploadfile'
+import allImage from '@/components/allImage'
+import addItem from '@/components/addItem'
+import edit from '@/components/edit'
+// import cat from '@/components/cat'
 
 
 const routes = [
@@ -22,14 +26,31 @@ const routes = [
         path: '/profile',
         name: 'profile',
         component: profile,
-        // meta:{
-        //     requiresAuth:true
-        // }
+        meta:{
+            requiresAuth:true
+        }
+    },
+    {
+        path: '/addItem',
+        name: 'addItem',
+        component: addItem,
+        meta:{
+            requiresAuth:true
+        }
     },
     {
         path:'/details',
         name: 'details',
         component: details,
+        meta:{
+            requiresAuth:true
+        }
+       
+    },
+    {
+        path:'/images',
+        name: 'allImage',
+        component: allImage,
         meta:{
             requiresAuth:true
         }
@@ -80,7 +101,19 @@ const routes = [
         path: '/uploadfile',
         name: 'uploadfile',
         component: uploadfile,
-    }
+        meta:{
+            requiresAuth:true
+        }
+    }, {
+        path: '/edit-product/:id',
+        name: 'edit',
+        component: edit,
+        
+        props: true,
+        meta:{
+            requiresAuth:true
+        }
+    }, 
 
 
 ];

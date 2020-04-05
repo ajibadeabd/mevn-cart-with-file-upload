@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 const Product = require('../models/Product');
+const Category = require('../models/Category');
+
 
 router.get('/', function (req, res, next) {
   let perPage = 3;
@@ -41,10 +43,10 @@ router.get('/', function (req, res, next) {
             pages,
             count,
             prevUrl: `http://localhost:3000/products?page=${page - 1}`,
-            nextUrl: `http://localhost:3000/products?page=${page + 1}`
+            nextUrl: `/products?page=${page + 1}`
           })
         }else {
-          res.redirect('/products')
+          res.redirect('http://localhost:3000/products')
         }
 
       });
@@ -57,5 +59,7 @@ router.get('/:id', function (req, res, next) {
     res.status(200).json(product);
   })
 });
+
+
 
 module.exports = router;

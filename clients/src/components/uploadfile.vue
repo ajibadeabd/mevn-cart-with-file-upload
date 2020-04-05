@@ -1,5 +1,6 @@
 <template>
     <div  class='container'>
+        <!-- <img  class='image' src="../../../public/uploads/file-1585926110331.jpg" alt="" > -->
          <div class="" v-if='message'
    :class="`message' ${error ? 'is-danger':'is-success'}`"
    >
@@ -102,11 +103,11 @@ export default {
 
                 const formData = new FormData()
                 formData.append('file',this.file)
-                    formData
-              let  description=this.description;
-              let category =this.category;
-              let price =this.price;
-              let name =this.name;
+                    formData.append('name',this.name)
+            //   let  description=this.description;
+            //   let category =this.category;
+            //   let price =this.price;
+            //   let name =this.name;
         
                 // let all={
                     
@@ -117,7 +118,8 @@ export default {
                 // }
                 try{
                     
-                    await Api().post('/api/uploadFile',formData,name)
+                    await Api().post('/api/uploadFile',formData)
+                    // await Api().post('/api/uploadFile',all)
                  this.error=false;
                    this.message='file has been uploaded  '
                        this.file=""
@@ -135,5 +137,8 @@ export default {
 
 
 <style scoped>
-
+.image{
+    width:20%;
+    height: 20%;
+}
 </style>

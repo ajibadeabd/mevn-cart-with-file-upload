@@ -15,6 +15,7 @@
                 <li class='list-group-item'>PHONE NUMBER: {{user.number}} </li>
                 <li class='list-group-item'>ADDRESS: {{user.address}}</li>
                 <li class='list-group-item'>postal_code: {{user.postal_code}}</li>
+                <li v-if="user.role" class='list-group-item'>Role: {{user.role}}</li>
                   
                     <router-link v-if="isLoggedIn"
                      tag="a" :to = "{name: 'details'}" class="nav-link">Update your details

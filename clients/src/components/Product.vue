@@ -30,9 +30,10 @@ export default {
     }
   },
   created() {
-    console.log(this.id)
+    // console.log(this.id)
        Api().get(`/products/${this.id}`)
               .then(response => {
+                // console.log(response.data)
                 this.product = response.data
               });
   },
@@ -40,7 +41,7 @@ export default {
         checkout(e) {
             e.preventDefault();
             this.$router.push({ name: 'checkout' });
-            console.log(e);
+            // console.log(e);
         }
     }
 }

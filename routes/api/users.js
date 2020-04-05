@@ -99,7 +99,8 @@ router.post('/register', function(req, res, next) {
      name,
      email,
      password,
-     conpassword
+     conpassword,
+     role
  }=req.body
  if(req.body.password!==req.body.conpassword){
   res.status(400).json({
@@ -134,7 +135,8 @@ else{
         address:'',
         number:"",
         country:"",
-        postal_code:"",
+        postal_code:""
+        
     
     })
     // hash password
@@ -188,7 +190,7 @@ router.post('/login', function(req, res, next) {
         
                 }
                 jwt.sign(payload,process.env.SECRET_KEY, {
-                    expiresIn:1000
+                    expiresIn:6092342
         
                   },(err,token)=>{
                       res.status(200).json({
@@ -243,9 +245,10 @@ router.post('/login', function(req, res, next) {
   //upload profile
 
   router.post('/uploadFile',upload, (req, res, next) =>{
+      console.log(req.file)
       console.log(req.body)
     //   let incomingfile = `/uploads/${req.file.filename}`
-    let fileName={file: req.file.filename,
+    let fileName={file: `../../../public/uploads/${req.file.filename}`,
         originalname:req.file.originalname
     }
     
@@ -279,7 +282,48 @@ router.post('/login', function(req, res, next) {
    
     });
   
+    
+    router.get('/getFile',(req, res, next)=> {
+        Image.find()
+        .then(image=>{
+ res.status(200).json({
+     image:image
+ })
+        })   
+    }) 
+  /// delete all images from database  
+    router.delete('/images',(req, res, next)=> {
+        Image.deleteMany()
 
+
+        .then(image=>{
+ res.status(200).json({
+     image:image,
+     msg:'All images have been successfully deleted'
+ })
+        })   
+    }) 
+   
+    router.delete('/images/:id', function(req, res, next) {
+        Image.findByIdAndDelete(req.params.id, req.body, function (err, image) {
+          if (err) return next(err);
+          res.status(200).json({
+            image:image,
+            msg:'image successfully deleted'
+        })
+        });
+      });
       
+   
+router.get('/aaaaaa', function(req, res, next) {
+    //   Category.find().then(cat=>{
+    // res.json({cat})
+    // //   })
+    // Category.find(function (err, categories) {
+    //     if (err) return console.log(err);
+    //     res.status(200).json(categories);
+    // });
+      console.log('edfe')
        
+     });    
 module.exports = router;

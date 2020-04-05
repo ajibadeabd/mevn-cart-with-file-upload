@@ -37,7 +37,9 @@
                      </router-link>
                 </li>
               
-                
+               <!-- <li  v-if="user" class="nav-item">
+                     {{user.role}}
+               </li> -->
                
                 <li   v-if="isLoggedIn"  class="nav-item" >
                     <a  @click.prevent="logoutuser"  class="nav-link">
@@ -69,26 +71,28 @@ export default {
     data() {
         return {
             auth:'',
-            user:'',
+            // user:'',
             categories: []
         }
     },
     created() {
         Api().get('/categories')
             .then(response => {
+      console.log('this.user')
+
                 this.categories = response.data;
             });
-            
+            //   if()
     }, 
      methods:{
-    ...mapActions(['logout']),
+        ...mapActions(["getProfile",'logout']),
+   
     logoutuser(){
 this.logout()
     }
     },  
     computed: {
-          ...mapGetters(["isLoggedIn"]),
-
+          ...mapGetters(["isLoggedIn","user"]),
         cart() {
             return this.$store.getters.getCart
         }
